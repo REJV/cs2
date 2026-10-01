@@ -6,10 +6,8 @@
 # Bonus:                                             #
 # Log: Sep 29/26                                     #              
 # Bugs: None right now                               #
-# Sources:                                           #
+# Sources:Some google for single lines               #
 ######################################################
-
-
 
 
 
@@ -54,24 +52,8 @@ def middlename (name):
         print ("No middle name supplied ")
 
 
-# Show the user's last name.
-lastname(name)
-firstname(name)
-middlename(name)
 
 
-def initails (name):
-    """
-IN PROGRESS
-
-    """
-    name = name.split(",")
-    listname = len(name)
-
-    if listname == 3:
-        print (name[1])
-    else:
-        print ("")
 
 
 
@@ -83,7 +65,7 @@ def lowercase (text):
     result = ""
     for char in text:
         if 'A' <= char <= 'Z':
-            result = result + chr(old(char) + 32)
+            result = result + chr(ord(char) + 32)
     return result
 
 
@@ -95,11 +77,10 @@ def uppercase (text):
     result = ""
     for char in text:
         if 'a' <= char <= 'z':
-            result = result + chr(old(char) - 32)
+            result = result + chr(ord(char) - 32)
     return result
 
-lowercase(name)
-uppercase(name)
+
 import random   # used b to mix up letters
 
 
@@ -122,4 +103,188 @@ def randomname (name):
 
     print (",".join(name))
 
-randomname(name)
+
+def countvowels (name):
+    """
+    Count the vowels in the name and return the total
+
+    Also displays a subtotal for each vowel (a, e, i, o, u).
+   
+    """
+    a = 0
+    e = 0
+    i = 0
+    o = 0
+    u = 0
+
+    for char in name: #for how many charachters in name loop to find vowels. 
+        if char == 'a' or char == 'A':
+            a = a + 1
+        elif char == 'e' or char == 'E':
+            e = e + 1
+        elif char == 'i' or char == 'I':
+            i = i + 1
+        elif char == 'o' or char == 'O':
+            o = o + 1
+        elif char == 'u' or char == 'U':
+            u = u + 1
+
+    total = a + e + i + o + u
+    print ("Vowels: a =", a, " e =", e, " i =", i, " o =", o, " u =", u, " total =", total)
+    return total
+
+def reversename (name):
+    """
+    Reverse the name, display it, and return it
+
+    """
+    result = ""
+    index = len(name) - 1            # start at the last character
+
+    while index >= 0:
+        result = result + name[index]
+        index = index - 1
+
+    print ("Reversed:", result)
+    return result
+
+def countconsonants (name):
+    """
+    Return how many consonants are in the name.
+
+    checks if vowel and if a letter if not vowel and letter then its a consnant
+
+    """
+    total = 0
+
+    for char in name:
+        letter = ('a' <= char <= 'z') or ('A' <= char <= 'Z')   # True if char is a letter
+        vowel = char in "aeiouAEIOU"                            # True if char is a vowel
+
+        if letter and not vowel:
+            total = total + 1
+
+    return total
+
+
+def initials (name):
+    """
+    Return the initials of the name in capitals with periods.
+    """
+    parts = name.split(",")         # split up name via comma as usual
+    result = ""
+
+    for part in parts:
+        for char in part:
+            if char != " ":                      # first character that isn't a space
+                if 'a' <= char <= 'z':
+                    char = chr(ord(char) - 32)   # make it a capital, 'a' (97) -> 'A' (65)
+                result = result + char + "."
+                break                            # only want the first letter of this part
+
+    return result
+
+def hashyphen (name):
+    """
+    Return true if the Last name contains a hyphen, otherwise its false
+
+    """
+    parts = name.split(",")          # split name
+    last = parts[len(parts) - 1] #find last part of name
+    if last == "" and len(parts) > 1: 
+        last = parts[len(parts) - 2] #incase to find last name
+
+    for char in last:
+        if char == '-': # if there is a hyphen return true
+            return True
+    return False
+
+def ispalindrome (name):
+    """
+    Return True if the first name is a palindrome, if not then false
+
+    In short (detects if reads forwrard and backward same)
+    """
+    first = name.split(",")[0]       #gets first name because 0 is one
+    left = 0                         # index from the front
+    right = len(first) - 1           # index from the back
+
+    while left < right: # its just gathering the letter
+        front = first[left]
+        back = first[right]
+
+        #makes both front and back lowercase everytime
+        if 'A' <= front <= 'Z': 
+            front = chr(ord(front) + 32)
+        if 'A' <= back <= 'Z':
+            back = chr(ord(back) + 32)
+
+        if front != back:
+            return False
+        left = left + 1
+        right = right - 1
+
+    return True
+def menu (name):
+    """
+    Show a menu of every function and run the one the user picks.
+
+    
+    """
+    choice = ""
+
+    while choice != "0":             # keep going until the user quits
+        print ()
+        print ("========== MENU ==========")
+        print ("Current name:", name)
+        print (" 1. First name")
+        print (" 2. Middle name")
+        print (" 3. Last name")
+        print (" 4. Lowercase")
+        print (" 5. Uppercase")
+        print (" 6. Random name")
+        print (" 7. Count vowels")
+        print (" 8. Reverse name")
+        print (" 9. Count consonants")
+        print ("10. Initials")
+        print ("11. Last name has a hyphen?")
+        print ("12. First name is a palindrome?")
+        print ("13. Enter a new name")
+        print (" 0. Quit")
+        choice = input ("Pick an option: ")
+        print ()
+
+        if choice == "1":
+            firstname(name)
+        elif choice == "2":
+            middlename(name)
+        elif choice == "3":
+            lastname(name)
+        elif choice == "4":
+            print ("Lowercase:", lowercase(name))         # returns
+        elif choice == "5":
+            print ("Uppercase:", uppercase(name))         # returns
+        elif choice == "6":
+            randomname(name)
+        elif choice == "7":
+            countvowels(name)                             # already prints the subtotals
+        elif choice == "8":
+            reversename(name)                             # already prints the reversed name
+        elif choice == "9":
+            print ("Consonants:", countconsonants(name))
+        elif choice == "10":
+            print ("Initials:", initials(name))
+        elif choice == "11":
+            print ("Last name has a hyphen:", hashyphen(name))
+        elif choice == "12":
+            print ("First name is a palindrome:", ispalindrome(name))
+        elif choice == "13":
+            name = input ('type your name in this format (First, Middle if applicable, Last,) Must include commas')
+        elif choice == "0":
+            print ("Goodbye")
+        else:
+            print ("Not an option, pick a number from the menu.")   # anything else typed
+
+
+menu(name)   # start the menu 
+
