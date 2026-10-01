@@ -16,7 +16,7 @@
 
 
 
-name = input ('type your name in this format (First, Middle if applicable, Last,) Must include commas') #gathering name for funtctions
+name = input ('type your name in this format (First, Middle if applicable, Last,) Must include commas: ') #gathering name for funtctions
 def lastname (name): #print last name
     name = name.split(",")   # e.g. "Ann,Lee" -> ["Ann", "Lee"]
     listname = len(name)     # number of name parts
@@ -30,10 +30,13 @@ def lastname (name): #print last name
 def firstname (name):
     """
     Print the first name 
-    string = Full name as "First,Last" or "First,Middle,Last"
-    name = name.split(",")
-    print (name[0])
+    
     """
+    name = name.split(",")
+    result = (name[0])
+
+    return result
+    
 
 
 def middlename (name):
@@ -58,26 +61,32 @@ def middlename (name):
 
 
 
-def lowercase (text):
+def lowercase (name):
     """
     Print the name with every letter in lowercase.
     """
     result = ""
-    for char in text:
+    for char in name:
         if 'A' <= char <= 'Z':
             result = result + chr(ord(char) + 32)
+        elif 'a' <= char <= 'z':
+                    result = result + chr(ord(char) + 0)
+     
+        
     return result
 
 
 
-def uppercase (text):
+def uppercase (name):
     """
     Print the name with every letter in lowercase.
     """
     result = ""
-    for char in text:
+    for char in name:
         if 'a' <= char <= 'z':
             result = result + chr(ord(char) - 32)
+        elif 'A' <= char <= 'Z':
+                            result = result + chr(ord(char) + 0)
     return result
 
 
@@ -101,7 +110,8 @@ def randomname (name):
         name[count] = ''.join(letters)    # back into a string
         count = count + 1
 
-    print (",".join(name))
+    result = (",".join(name))
+    return result
 
 
 def countvowels (name):
@@ -255,7 +265,7 @@ def menu (name):
         print ()
 
         if choice == "1":
-            firstname(name)
+            print (firstname(name))
         elif choice == "2":
             middlename(name)
         elif choice == "3":
@@ -265,7 +275,7 @@ def menu (name):
         elif choice == "5":
             print ("Uppercase:", uppercase(name))         # returns
         elif choice == "6":
-            randomname(name)
+            print(randomname(name))
         elif choice == "7":
             countvowels(name)                             # already prints the subtotals
         elif choice == "8":
